@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="'en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A Basic Notes App.">
+        <meta name="author" content="Tiberiu Maxim">
+        <meta property="og:title" content="A Basic Notes App.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://127.0.0.1:8000/">
+        <meta property="og:description" content="A Basic Notes App.">
+{#        <meta property="og:image" content="image.png">#}
+        <title>
+            {% block title %}
+                NotesApp
+            {% endblock %}
+        </title>
+
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+        {% block style-css %}{% endblock %}
+    </head>
+    <body>
+        {% if request.user.is_authenticated %}
+            <div class="topnav">
+                <a class="active" href="{% url 'main_app:list_notes' %}">My Notes</a>
+                <a href="{% url 'main_app:add_new_note' %}">Create New Note</a>
+                <a href="{% url 'userprofile:update_account' request.user.id %}">My Profile</a>
+                <a href="{% url 'logout' %}">Log out</a>
+            </div>
+        {% endif %}
+        <div>
+                {% block content %}
+                {% endblock %}
+        </div>
+    </body>
+</html>

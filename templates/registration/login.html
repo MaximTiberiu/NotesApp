@@ -1,0 +1,31 @@
+<!--suppress ALL -->
+{% extends 'base.html' %}
+
+{% block title %}
+    NotesApp - Login
+{% endblock %}
+
+{% block style-css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/login.css' %}">
+{% endblock %}
+
+{% block content %}
+        <div class="main">
+            <p class="sign" align="center">Sign in</p>
+            <form class="form1" method="post">
+                {% csrf_token %}
+                <div style="text-align: center;"><label>Username</label></div>
+                <label>
+                    <input class="un" type="text" align="center" name="username">
+                </label>
+                <div style="text-align: center;"><label>Password</label></div>
+                <label>
+                    <input class="pass" type="password" align="center" name="password">
+                </label>
+                <button type="submit" class="submit" align="center">Sign in</button>
+                <p class="forgot" align="center"><a href="{% url 'userprofile:add_new_account' %}">Create New Account</a></p>
+                {{ form.non_field_errors }}
+            </form>
+        </div>
+{% endblock %}

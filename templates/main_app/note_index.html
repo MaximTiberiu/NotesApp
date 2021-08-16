@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    NotesApp - My notes
+{% endblock %}
+
+{% block style-css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main_app/note_index.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% if note_list.count %}
+        <table id="notes">
+            <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Title</th>
+                        <th>Date&Time</th>
+                        <th>Content</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in note_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.datetime|date:"D d M Y" }} {{ item.datetime|time:"H:i" }}</td>
+                            <td>{{ item.content }}</td>
+                            <td><a href="{% url 'main_app:update_note' item.id %}">Modify</a></td>
+                            <td><a href="{% url 'main_app:delete_note' item.id %}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+    {% else %}
+        <div class="div-verticalhorizontal">
+            <img src="{% static 'main_app/oops.png' %}" alt="OOPS" class="img-verticalhorizontal">
+        </div>
+    {% endif %}
+{% endblock %}
